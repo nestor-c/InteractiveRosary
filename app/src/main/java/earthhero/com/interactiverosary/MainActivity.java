@@ -42,11 +42,6 @@ public class MainActivity extends AppCompatActivity{
             Toast.makeText(this, "This device does not support OpenGL ES 2.0", Toast.LENGTH_LONG).show();
             return;
         }
-
-
-
-
-
         setContentView(R.layout.activity_main);
         final Button btn_Start = (Button) findViewById(R.id.BTN_Start);
         btn_Start.setOnClickListener(new View.OnClickListener() {

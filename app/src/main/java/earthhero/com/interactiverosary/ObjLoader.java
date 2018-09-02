@@ -26,6 +26,7 @@ public class ObjLoader {
             reader = new BufferedReader(in);
             // read file until EOF
             String line;
+            //Read every line and split it up with spaces being the delimiter and store it into array parts
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(" ");
                 switch (parts[0]) {
