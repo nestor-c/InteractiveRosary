@@ -26,7 +26,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
-public class FirstOpenGLProjectRenderer implements Renderer {
+public class RosaryRenderer implements Renderer {
     private final Context context;
     private int program;
     private static final String U_COLOR = "u_Color";
@@ -36,11 +36,13 @@ public class FirstOpenGLProjectRenderer implements Renderer {
     private int POSITION_COMPONENT_COUNT = 3;
     private static final int BYTES_PER_FLOAT = 4;
     private final FloatBuffer positions;
+    private final FloatBuffer normals;
+    private final FloatBuffer textureCoordinates;
     private static final String U_MATRIX = "u_Matrix";
     private final float[] projectionMatrix = new float[16];
     private int uMatrixLocation;
 
-    FirstOpenGLProjectRenderer(Context context){
+    RosaryRenderer(Context context){
         this.context = context;
         ObjLoader objLoader = new ObjLoader(context, "Rosary.obj");
         int numFaces = objLoader.numFaces;
@@ -49,10 +51,10 @@ public class FirstOpenGLProjectRenderer implements Renderer {
         positions = ByteBuffer.allocateDirect(objLoader.positions.length * mBytesPerFloat)
                 .order(ByteOrder.nativeOrder()).asFloatBuffer();
         positions.put(objLoader.positions).position(0);
-        FloatBuffer normals = ByteBuffer.allocateDirect(objLoader.normals.length * mBytesPerFloat)
+        normals = ByteBuffer.allocateDirect(objLoader.normals.length * mBytesPerFloat)
                 .order(ByteOrder.nativeOrder()).asFloatBuffer();
         normals.put(objLoader.normals).position(0);
-        FloatBuffer textureCoordinates = ByteBuffer.allocateDirect(objLoader.textureCoordinates.length * mBytesPerFloat)
+        textureCoordinates = ByteBuffer.allocateDirect(objLoader.textureCoordinates.length * mBytesPerFloat)
                 .order(ByteOrder.nativeOrder()).asFloatBuffer();
         textureCoordinates.put(objLoader.textureCoordinates).position(0);
     }
@@ -74,7 +76,6 @@ public class FirstOpenGLProjectRenderer implements Renderer {
         glVertexAttribPointer(aPositionLocation, POSITION_COMPONENT_COUNT, GL_FLOAT, false, 0, positions);
         glEnableVertexAttribArray(aPositionLocation);
         uMatrixLocation = glGetUniformLocation(program, U_MATRIX);
-
     }
 
     @Override
@@ -83,7 +84,7 @@ public class FirstOpenGLProjectRenderer implements Renderer {
         int numFaces = objLoader.numFaces;
         glClear(GL_COLOR_BUFFER_BIT);
         glUniformMatrix4fv(uMatrixLocation, 1, false, projectionMatrix, 0);
-        glUniform4f(uColorLocation, 1.0f, 1.0f, 1.0f, 1.0f);
+        glUniform4f(uColorLocation, 0.65f, 0.5f, 1.0f, 1.0f);
         glDrawArrays(GL_TRIANGLES, 0, numFaces);
 
     }

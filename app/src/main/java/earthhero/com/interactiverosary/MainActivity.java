@@ -2,7 +2,6 @@ package earthhero.com.interactiverosary;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.ConfigurationInfo;
-import android.content.res.Configuration;
 import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.os.Bundle;
@@ -36,7 +35,7 @@ public class MainActivity extends AppCompatActivity{
 
         if(supportsEs2){
             glSurfaceView.setEGLContextClientVersion(2);
-            glSurfaceView.setRenderer(new FirstOpenGLProjectRenderer(this));
+            glSurfaceView.setRenderer(new RosaryRenderer(this));
             rendererSet = true;
         }else{
             Toast.makeText(this, "This device does not support OpenGL ES 2.0", Toast.LENGTH_LONG).show();

@@ -26,7 +26,7 @@ public class ObjLoader {
             reader = new BufferedReader(in);
             // read file until EOF
             String line;
-            //Read every line and split it up with spaces being the delimiter and store it into array parts
+            //Read every line and split it up with spaces being the delimiter and store it into array "parts"
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(" ");
                 switch (parts[0]) {
@@ -77,11 +77,13 @@ public class ObjLoader {
         int textureIndex = 0;
         for (String face : faces) {
             String[] parts = face.split("/");
+            //Matches each face with its corresponding vertices
+            //Places said vertices into positions array.
             int index = 3 * (Short.valueOf(parts[0]) - 1);
             positions[positionIndex++] = vertices.get(index++);
             positions[positionIndex++] = vertices.get(index++);
             positions[positionIndex++] = vertices.get(index);
-
+            //Similarly match textureCoordinates to each face.
             index = 2 * (Short.valueOf(parts[1]) - 1);
             textureCoordinates[normalIndex++] = textures.get(index++);
             // NOTE: Bitmap gets y-inverted
